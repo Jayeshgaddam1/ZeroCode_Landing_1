@@ -1,0 +1,68 @@
+# Context File for Cursor AI - ZeroCode Landing Page
+
+## Overview
+This document provides context and guidelines for Cursor AI to generate a landing page for "ZeroCode," an AI-powered, no-code app development platform. The landing page should be designed to communicate the core value proposition effectively, addressing user pain points and highlighting key solutions.
+
+## Target Audience
+- Entrepreneurs
+- Small business owners
+- Creators and innovators
+- Non-technical users looking to develop apps without coding
+
+## Core Messaging
+### Headline:
+**Empowering Ideas, No Code Required**
+
+### Subheadline:
+ZeroCode is redefining app development with AI-powered, no-code simplicity. Transform ideas into fully functional, downloadable apps—no coding, no barriers. Whether you’re an entrepreneur, small business, or creator, our platform streamlines the process, making innovation effortless.
+
+### Call to Action (CTA):
+**Join the List** (Button)
+
+## Sections
+
+### 1. Hero Section
+- Dark-themed background with subtle binary code visuals.
+- Illustration of a futuristic AI-assisted developer using a mobile device.
+- Prominent headline and subheadline.
+- CTA button with a sleek, modern design.
+
+### 2. Problem Statement
+**Your Problems**
+- App development is complex and requires coding expertise.
+- High costs and long timelines slow down innovation.
+- Non-technical users struggle to bring ideas to life.
+- Existing no-code tools still have a learning curve.
+
+Visual Elements:
+- Two illustrated personas (one male, one female) representing users facing these challenges.
+
+### 3. Solution Overview
+**Our Solutions**
+- AI-powered app creation with simple text input.
+- No coding required—accessible to everyone.
+- Faster & cost-effective compared to traditional development.
+- Seamless deployment to web, mobile, or cloud platforms.
+
+### 4. Footer
+- Social media icons: LinkedIn, Instagram, Discord, X (Twitter)
+
+## Design Guidelines
+- **Dark theme** with white text for contrast.
+- **Modern and minimalistic illustrations** of users and AI-assisted app creation.
+- **Smooth UI/UX** with an emphasis on readability and clear CTAs.
+- **Typography:** Bold for headings, clean sans-serif for body text.
+
+## Functionality Requirements
+- Responsive design for desktop and mobile.
+- Smooth scrolling for a seamless user experience.
+- Interactive CTA button that prompts users to sign up.
+- Links to social media in the footer.
+
+## Additional Notes
+This landing page should be visually engaging while keeping the information concise and easy to digest. The goal is to convert visitors into early adopters by demonstrating the ease and power of AI-powered no-code development.
+
+---
+
+This context file should guide Cursor AI in generating a compelling, conversion-focused landing page for ZeroCode.
+
