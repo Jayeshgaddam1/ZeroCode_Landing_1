@@ -8,24 +8,60 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// CTA button functionality
-document.querySelectorAll('.cta-button').forEach(button => {
-    button.addEventListener('click', () => {
-        // Show email sign-up form or modal
-        // This is a placeholder - you'll need to implement the actual form
-        alert('Join our waitlist form would appear here!');
-        // Alternatively, you could show a modal with a form
-    });
-});
+// Modal functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const modal = document.getElementById('popupModal');
+    const openButtons = document.querySelectorAll('.cta-button');
+    const closeButton = document.querySelector('.close');
+    const form = document.getElementById('waitlistForm');
 
-// Add some animation for binary background
-const binaryBackground = document.querySelector('.binary-background');
-if (binaryBackground) {
-    window.addEventListener('scroll', () => {
-        const scrollPosition = window.scrollY;
-        binaryBackground.style.transform = `translateY(${scrollPosition * 0.4}px)`;
+
+    // Show modal only when clicking "Join the List" button
+    openButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            modal.style.display = "block";
+        });
     });
-}
+
+    // Close modal when clicking the close button
+    closeButton.addEventListener('click', () => {
+        modal.style.display = "none";
+    });
+
+    // Close modal when clicking outside the modal content
+    window.addEventListener('click', (event) => {
+        if (event.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
+
+    // Handle form submission
+    form.addEventListener('submit', (event) => {
+        event.preventDefault(); // Prevent default form submission
+        
+        const name = document.getElementById('userName').value;
+        const email = document.getElementById('userEmail').value;
+        
+        console.log(`User Joined: Name - ${name}, Email - ${email}`);
+
+        // Here you can send the data to your backend API
+        
+        alert('Thank you for joining! We will notify you soon.');
+        modal.style.display = 'none'; // Hide modal after submission
+        form.reset(); // Clear form fields
+    });
+
+    // Add some animation for binary background
+        const binaryBackground = document.querySelector('.binary-background');
+        if (binaryBackground) {
+            window.addEventListener('scroll', () => {
+                const scrollPosition = window.scrollY;
+                binaryBackground.style.transform = `translateY(${scrollPosition * 0.4}px)`;
+            });
+        }
+        });
+
+
 
 // Enhanced binary background animation
 document.addEventListener('DOMContentLoaded', function() {
@@ -102,4 +138,4 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Check on scroll
     window.addEventListener('scroll', animateCardsOnScroll);
-}); 
+});

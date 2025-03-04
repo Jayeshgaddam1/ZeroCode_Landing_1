@@ -25,7 +25,7 @@
                 <div class="hero-text">
                     <h1>Empowering Ideas, No Code Required</h1>
                     <p>ZeroCode is redefining app development with AI-powered, no-code simplicity. Transform ideas into fully functional, downloadable apps—no coding, no barriers. Whether you're an entrepreneur, small business, or creator, our platform streamlines the process, making innovation effortless.</p>
-                    <button class="cta-button">Join the List</button>
+                    <button class="cta-button" id="openModal">Join the List</button>
                 </div>
                 <div class="hero-image">
                     <img src="hero_element.png" alt="AI-Powered App Development">
@@ -33,6 +33,20 @@
             </div>
         </div>
     </section>
+
+    <!-- Popup Modal -->
+    <div id="popupModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Join Our Waitlist</h2>
+            <p>Enter your details to get early access!</p>
+            <form id="waitlistForm">
+                <input type="text" id="userName" placeholder="Your Name" required>
+                <input type="email" id="userEmail" placeholder="Your Email" required>
+                <button type="submit">Join Now</button>
+            </form>
+        </div>
+    </div>
 
     <!-- Problem Statement Section -->
     <section id="problems" class="problems">
@@ -103,9 +117,8 @@
                 </div>
                 
                 <div class="social-icons">
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-linkedin"></i></a>
-                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="https://x.com/BuildX_ai"><i class="fab fa-twitter"></i></a>
+                    <a href="https://linkedin.com/buildx-ai"><i class="fab fa-linkedin"></i></a>
                     <a href="#"><i class="fab fa-instagram"></i></a>
                     <a href="#"><i class="fab fa-discord"></i></a>
                 </div>
@@ -117,6 +130,6 @@
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="script.js"></script>    
 </body>
-</html> 
+</html>
