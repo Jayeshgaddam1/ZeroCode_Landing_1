@@ -1,0 +1,21 @@
+{
+  "name": "zerocode-waitlist",
+  "version": "1.0.0",
+  "description": "Waitlist collection for ZeroCode",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vercel dev",
+    "deploy": "vercel deploy --prod"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@vercel/speed-insights": "^1.2.0",
+    "fs": "0.0.1-security",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "vercel": "^28.0.0"
+  }
+}

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZeroCode - Subscriber Management</title>
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Vercel Web Analytics -->
+    <script>
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
+    <!-- End Vercel Web Analytics -->
+    
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+        .admin-container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        h1, h2 {
+            color: #333;
+        }
+        .login-section {
+            max-width: 400px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .data-section {
+            display: none;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: 'Poppins', sans-serif;
+        }
+        button {
+            padding: 10px 15px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            margin: 5px;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f8f9fa;
+        }
+        .stats {
+            margin: 20px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 4px;
+        }
+        .action-buttons {
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <h1>Subscriber Management</h1>
+        
+        <!-- Login Section -->
+        <div id="loginSection" class="login-section">
+            <h2>Admin Login</h2>
+            <input type="password" id="passwordInput" placeholder="Enter admin password">
+            <button id="loginButton">Login</button>
+        </div>
+        
+        <!-- Data Section (hidden until login) -->
+        <div id="dataSection" class="data-section">
+            <div class="stats" id="statsSection">
+                <!-- Stats will be inserted here -->
+            </div>
+            
+            <div class="action-buttons">
+                <button id="exportButton">Export to CSV</button>
+                <button id="refreshButton">Refresh Data</button>
+                <button id="logoutButton">Logout</button>
+            </div>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody id="subscribersTable">
+                    <!-- Subscriber data will be inserted here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const loginSection = document.getElementById('loginSection');
+            const dataSection = document.getElementById('dataSection');
+            const passwordInput = document.getElementById('passwordInput');
+            const loginButton = document.getElementById('loginButton');
+            const logoutButton = document.getElementById('logoutButton');
+            const exportButton = document.getElementById('exportButton');
+            const refreshButton = document.getElementById('refreshButton');
+            const subscribersTable = document.getElementById('subscribersTable');
+            const statsSection = document.getElementById('statsSection');
+            
+            // Admin password - in a real app, this would be handled more securely
+            const ADMIN_PASSWORD = 'yourpassword';
+            
+            // Function to load subscriber data
+            async function loadSubscribers() {
+                try {
+                    const response = await fetch('/api/subscribers', {
+                        headers: {
+                            'Authorization': `Basic ${btoa('admin:' + ADMIN_PASSWORD)}`
+                        }
+                    });
+                    
+                    if (!response.ok) {
+                        throw new Error('Failed to load data');
+                    }
+                    
+                    const subscribers = await response.json();
+                    
+                    // Update stats
+                    statsSection.innerHTML = `
+                        <h3>Statistics</h3>
+                        <p>Total Subscribers: ${subscribers.length}</p>
+                        <p>Last Signup: ${subscribers.length > 0 ? new Date(subscribers[0].createdAt).toLocaleString() : 'N/A'}</p>
+                    `;
+                    
+                    // Clear table
+                    subscribersTable.innerHTML = '';
+                    
+                    // Add subscribers to table
+                    subscribers.forEach(sub => {
+                        const row = document.createElement('tr');
+                        const date = new Date(sub.createdAt).toLocaleString();
+                        
+                        row.innerHTML = `
+                            <td>${sub.name}</td>
+                            <td>${sub.email}</td>
+                            <td>${date}</td>
+                        `;
+                        
+                        subscribersTable.appendChild(row);
+                    });
+                    
+                } catch (error) {
+                    console.error('Error loading subscribers:', error);
+                    alert('Error loading data. Please try again.');
+                }
+            }
+            
+            // Login button click
+            loginButton.addEventListener('click', () => {
+                const password = passwordInput.value;
+                
+                if (password === ADMIN_PASSWORD) {
+                    loginSection.style.display = 'none';
+                    dataSection.style.display = 'block';
+                    loadSubscribers();
+                } else {
+                    alert('Invalid password');
+                }
+            });
+            
+            // Password input enter key
+            passwordInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    loginButton.click();
+                }
+            });
+            
+            // Logout button click
+            logoutButton.addEventListener('click', () => {
+                loginSection.style.display = 'block';
+                dataSection.style.display = 'none';
+                passwordInput.value = '';
+            });
+            
+            // Refresh button click
+            refreshButton.addEventListener('click', loadSubscribers);
+            
+            // Export button click
+            exportButton.addEventListener('click', async () => {
+                try {
+                    const response = await fetch('/api/subscribers', {
+                        headers: {
+                            'Authorization': `Basic ${btoa('admin:' + ADMIN_PASSWORD)}`
+                        }
+                    });
+                    
+                    if (!response.ok) {
+                        throw new Error('Failed to load data');
+                    }
+                    
+                    const subscribers = await response.json();
+                    
+                    // Create CSV content
+                    let csv = 'Name,Email,Date\n';
+                    subscribers.forEach(sub => {
+                        const date = new Date(sub.createdAt).toLocaleDateString();
+                        csv += `"${sub.name}","${sub.email}","${date}"\n`;
+                    });
+                    
+                    // Create download
+                    const blob = new Blob([csv], { type: 'text/csv' });
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.setAttribute('hidden', '');
+                    a.setAttribute('href', url);
+                    a.setAttribute('download', 'subscribers.csv');
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    
+                } catch (error) {
+                    console.error('Error exporting data:', error);
+                    alert('Error exporting data. Please try again.');
+                }
+            });
+        });
+    </script>
+</body>
+</html> 
