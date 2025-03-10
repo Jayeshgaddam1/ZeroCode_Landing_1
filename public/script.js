@@ -35,11 +35,16 @@ window.onclick = function(event) {
 waitlistForm.addEventListener("submit", async function(e) {
   e.preventDefault();
   
+  const submitButton = this.querySelector('button[type="submit"]');
+  const originalButtonText = submitButton.textContent;
+  submitButton.disabled = true;
+  submitButton.textContent = 'Submitting...';
+  
   const name = document.getElementById("userName").value;
   const email = document.getElementById("userEmail").value;
   
   try {
-    const response = await fetch('/api/subscribers', {
+    const response = await fetch('/api/subscribe', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -57,8 +62,11 @@ waitlistForm.addEventListener("submit", async function(e) {
       alert(`Error: ${data.message || 'Something went wrong'}`);
     }
   } catch (error) {
+    console.error('Submission error:', error);
     alert("There was an error submitting your information. Please try again.");
-    console.error(error);
+  } finally {
+    submitButton.disabled = false;
+    submitButton.textContent = originalButtonText;
   }
 });
 
